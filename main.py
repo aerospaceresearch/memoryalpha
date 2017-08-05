@@ -1,6 +1,8 @@
 from flask import Flask
 import os
+import uuid
 from flask import Flask, request, redirect, flash, render_template
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "SpaceRocks1!" # for the cookie
@@ -16,7 +18,7 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file:
-            filename = file.filename
+            filename = uuid.uuid4().hex + "-" + secure_filename(file.filename)
             file.save(os.path.join('input', filename))
             flash('uploaded: ' + filename)
             return redirect('/')
