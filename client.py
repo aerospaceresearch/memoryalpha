@@ -1,4 +1,6 @@
 import requests
 
-r = requests.get('http://localhost:5000')
-print(r.text)
+files = {'file': open('main.py', 'rb')}
+
+r = requests.post('http://localhost:5000', files=files)
+print(r.status_code)
